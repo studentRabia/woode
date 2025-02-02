@@ -18,7 +18,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({ categories, onSearch,
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 mb-6">
+    <div className="container py-10 mx-auto max-w-[1200px] px-4 flex flex-col md:flex-row gap-4 mb-6">
       <input
         type="text"
         placeholder="Search products..."

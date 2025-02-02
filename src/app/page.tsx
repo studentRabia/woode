@@ -10,7 +10,7 @@ export default function Home() {
   return (
    <div>
     <Hero/>
-
+    
     <LogoSection/>
     <Titlebar title="Featured Products"/>
     <FutureProduct/>

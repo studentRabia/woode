@@ -4,6 +4,7 @@ import { client } from "@/sanity/lib/client";
 import { ProductListing } from "../components/productsListing";
 import SearchAndFilter from "../components/SearchAndFilter";
 import Pagination from "../components/pagination";
+import NewsletterSection from "../components/Newsletter";
 
 async function fetchProducts(): Promise<Product[]> {
   const query = `*[_type == "products"] | order(_createdAt desc) {
@@ -72,7 +73,7 @@ const Shop = () => {
   return (
     <div>
       <SearchAndFilter categories={categories} onSearch={handleSearch} onFilter={handleFilter} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div className="container py-10 mx-auto max-w-[1200px] px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-28">
         {paginatedProducts.map((product) => (
           <ProductListing product={product} key={product.id} />
         ))}
@@ -85,7 +86,13 @@ const Shop = () => {
         itemsPerPage={itemsPerPage}
         currentPage={currentPage}
         onPageChange={setCurrentPage}
+        
       />
+
+
+      <NewsletterSection/>
+
+      
     </div>
   );
 };
