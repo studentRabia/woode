@@ -4,6 +4,10 @@ export default defineType({
   name: "order",
   type: "document",
   title: "Order",
+  initialValue: () => ({
+    orderDate: new Date().toISOString(), // ✅ Auto-set current date
+    status: "Pending",                   // ✅ Default status
+  }),
   fields: [
     defineField({
       name: "firstName",
@@ -11,7 +15,7 @@ export default defineType({
       type: "string",
     }),
     defineField({
-      name: "lastName", // ✅ Space remove kar diya
+      name: "lastName",
       title: "Last Name",
       type: "string",
     }),
@@ -36,59 +40,116 @@ export default defineType({
       type: "string",
     }),
     defineField({
-        name: "discount",
-        title: "Discount",
-        type: "number",
-      }),
-    defineField({
       name: "email",
       title: "Email",
       type: "string",
     }),
-    // defineField({
-    //   name: "cartItems",
-    //   title: "Cart Items", // ✅ "Cat Items" ki spelling bhi galat thi
-    //   type: "array",
-    //   of: [{ type: "reference", to: { type: "products" } }],
-    // }),
     defineField({
-      name: "total",
-      title: "Total",
+      name: "discount",
+      title: "Discount",
       type: "number",
+      validation: (Rule) => Rule.min(0),
     }),
+    defineField({
+      name: "subTotal",
+      title: "Sub Total",
+      type: "number",
+      validation: (Rule) => Rule.min(0),
+    }),
+    defineField({
+      name: "totalAmount",
+      title: "Total Amount",
+      type: "number",
+      validation: (Rule) => Rule.min(0),
+    }),
+
+    // ✅ Products in Order
+    defineField({
+      name: "products",
+      title: "Products",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "product", title: "Product", type: "reference", to: [{ type: "products" }] },
+            { name: "quantity", title: "Quantity", type: "number", validation: (Rule) => Rule.min(1) },
+            { name: "price", title: "Price", type: "number", validation: (Rule) => Rule.min(0) },
+          ],
+        },
+      ],
+    }),
+
+    // ✅ Customer Reference
+    defineField({
+      name: "customer",
+      title: "Customer",
+      type: "reference",
+      to: [{ type: "user" }], // Make sure 'user' schema exists
+    }),
+
+    // ✅ Order Date
+    defineField({
+      name: "orderDate",
+      title: "Order Date",
+      type: "datetime",
+      options: {
+        dateFormat: "YYYY-MM-DD",
+        timeFormat: "HH:mm",
+      },
+    }),
+
+    // ✅ Single Status Field
     defineField({
       name: "status",
       title: "Order Status",
       type: "string",
       options: {
         list: [
-          { title: "Pending", value: "pending" },
-          { title: "Success", value: "success" },
-          { title: "Dispatch", value: "dispatch" }, // ✅ Spelling Fix
+          { title: "Pending", value: "Pending" },
+          { title: "Processing", value: "Processing" },
+          { title: "Shipped", value: "Shipped" },
+          { title: "Delivered", value: "Delivered" },
+          { title: "Cancelled", value: "Cancelled" },
         ],
         layout: "radio",
       },
-      initialValue: "pending",
+      initialValue: "Pending",
     }),
+
     defineField({
-      name: "subTotal",
-      title: "Sub Total",
-      type: "number",
-    }),
-    defineField({
-  name: "cartItems",
-  title: "Cart Items",
-  type: "array",
-  of: [
-    {
-      type: "object",
-      fields: [
-        { name: "key", type: "string", hidden: true }, // hidden field
-        { name: "product", type: "reference", to: { type: "products" } },
-        { name: "quantity", type: "number" }, // Quantity bhi add kar sakte hain
+      name: "cartItems",
+      title: "Cart Items",
+      type: "array",
+      of: [
+        {
+          type: "object",  // ✅ Wrapping in object
+          fields: [
+            {
+              name: "product",
+              title: "Product",
+              type: "reference",
+              to: [{ type: "products" }], // Make sure 'products' schema exists
+            },
+            {
+              name: "quantity",
+              title: "Quantity",
+              type: "number",
+              validation: (Rule) => Rule.min(1),
+            },
+            {
+              name: "price",
+              title: "Price",
+              type: "number",
+              validation: (Rule) => Rule.min(0),
+            },
+          ],
+        },
       ],
-    },
-  ],
-}),
+    })
+    
+
+    
+    
   ],
 });

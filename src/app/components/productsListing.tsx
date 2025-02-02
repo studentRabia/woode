@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { addToCart } from "../actions/actions";
 import Swal from "sweetalert2";
+import { v4 as uuidv4 } from "uuid";
 
 // Product Listing Component
 export const ProductListing = ({ product }: { product: Product }) => {
@@ -10,19 +11,27 @@ export const ProductListing = ({ product }: { product: Product }) => {
 
 
 
-  const handleAddToCart = (e :React.MouseEvent,product:Product)=>{
-    e.preventDefault()
+  const handleAddToCart = (e: React.MouseEvent, product: Product) => {
+    e.preventDefault();
     Swal.fire({
-      position:"top-right",
-      icon:"success",
+      position: "top-right",
+      icon: "success",
       title: `${product.title} Added to Cart`,
-      showConfirmButton:false,
-      timer:2000
-    })
-    addToCart(product)
+      showConfirmButton: false,
+      timer: 2000,
+    });
+  
+    const cartItem = {
+      ...product,
+      _key: uuidv4(), // ✅ Unique key generate ho rahi hai
+      quantity: 1,    // ✅ Default quantity
+    };
+  
+    addToCart(cartItem);
     
-  }
+  };
 
+  
 
 
   return (

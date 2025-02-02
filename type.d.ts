@@ -39,3 +39,9 @@ interface SearchAndFilterProps {
   onSearch: (term: string) => void;
   onFilter: (category: string) => void;
 }
+
+
+interface CartItem extends Product {
+  _key: string;
+  quantity: number;
+}

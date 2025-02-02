@@ -74,9 +74,10 @@ const Shop = () => {
     <div>
       <SearchAndFilter categories={categories} onSearch={handleSearch} onFilter={handleFilter} />
       <div className="container py-10 mx-auto max-w-[1200px] px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-28">
-        {paginatedProducts.map((product) => (
-          <ProductListing product={product} key={product.id} />
-        ))}
+      {paginatedProducts.map((product) => (
+  <ProductListing product={product} key={product.id || product.id || Math.random()} />
+))}
+
 
 
       </div>
