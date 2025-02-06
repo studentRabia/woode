@@ -1,16 +1,4 @@
-// interface Product {
-//     title: string;
-//     id: string;
-//     price: number;
-//     imageUrl: string;
-//     category: {
-//       title: string;
-//     };
-//     description: string;
-//     inventory: number;
-//     tags: string[];
-//   }
-  
+
 
 
  interface Product {

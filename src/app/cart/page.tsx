@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import React, { useEffect, useState } from "react";
 import { getCartItems, removeFromCart, updateCartQuantity } from "../actions/actions";
@@ -76,7 +76,10 @@ const CartPage = () => {
     });
   };
 
+
+
   return (
+  
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold text-center mb-6 text-[#272343]">Shopping Cart</h1>
       {cartItems.length === 0 ? (
@@ -133,6 +136,7 @@ const CartPage = () => {
         </div>
       )}
     </div>
+   
   );
 };
 
