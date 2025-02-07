@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import { FaCheck, FaBars, FaTimes } from "react-icons/fa";
 import { PiWarningCircle } from "react-icons/pi";
 import { IoClose } from "react-icons/io5";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,6 +70,7 @@ export const Navbar = () => {
 };
 
 export const HeaderMid = () => {
+  const { isSignedIn } = useUser();
   return (
     <div className="h-[4rem] w-full bg-gray-100 flex flex-row justify-between items-center px-6 md:px-40 lg:px-40">
       {/* Left Section - Brand */}
@@ -78,7 +80,18 @@ export const HeaderMid = () => {
       </div>
 
       {/* Right Section - Cart */}
-      <div>
+      <div className="flex justify-center items-center gap-2
+      ">
+      {!isSignedIn ? (
+          <Link href="/login">
+            <button className="bg-[#029FAE] text-white px-1 py-2 rounded-full hover:bg-[#272343]">
+              SigneIn
+            </button>
+          </Link>
+        ) : (
+          <UserButton/>
+        )}
+
         <Link href={"/cart"}>
           <button className="bg-white text-black font-semibold h-11 px-4 flex items-center gap-2 border border-gray-300 rounded-md hover:shadow-md">
             <FiShoppingCart />
