@@ -85,7 +85,7 @@ export const HeaderMid = () => {
       {!isSignedIn ? (
           <Link href="/login">
             <button className="bg-[#029FAE] text-white px-1 py-2 rounded-full hover:bg-[#272343]">
-              SigneIn
+              SignIn
             </button>
           </Link>
         ) : (
