@@ -6,6 +6,13 @@ import SearchAndFilter from "../components/SearchAndFilter";
 import Pagination from "../components/pagination";
 import NewsletterSection from "../components/Newsletter";
 
+interface Category {
+  _id: string;
+  title: string;
+  products: number;
+   imageUrl: string;
+}
+
 async function fetchProducts(): Promise<Product[]> {
   const query = `*[_type == "products"] | order(_createdAt desc) {
     "id": _id,
@@ -38,7 +45,7 @@ const Shop = () => {
 
       // Extract unique categories
       const uniqueCategories = Array.from(
-        new Map(data.map((p) => [p.category._id, p.category])).values()
+        new Map(data.map((p) => [p.category._id, { ...p.category, products: 0, imageUrl: '' }])).values()
       );
       setCategories(uniqueCategories);
     }
@@ -75,7 +82,7 @@ const Shop = () => {
       <SearchAndFilter categories={categories} onSearch={handleSearch} onFilter={handleFilter} />
       <div className="container py-10 mx-auto max-w-[1200px] px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-28">
       {paginatedProducts.map((product) => (
-  <ProductListing product={product} key={product.id || product.id || Math.random()} />
+  <ProductListing product={product} key={product._id || product._id || Math.random()} />
 ))}
 
 

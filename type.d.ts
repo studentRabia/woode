@@ -2,16 +2,17 @@
 
 
  interface Product {
-  id: string; // _id mapped to id
+  id: string;
+  _id: string; 
   title: string;
   price: number;
   priceWithoutDiscount: number;
-  badge: string;
+  badge: string |null;
   imageUrl: string; // URL string for the image
   category: {
     _id: string;
     title: string;
-  };
+  } ;
   description: string;
   inventory: number;
   tags: string[]; // Array of tags (strings)
@@ -20,6 +21,8 @@
 interface Category {
   _id: string;
   title: string;
+  products: number;
+   imageUrl: string;
 }
 
 interface SearchAndFilterProps {

@@ -60,7 +60,7 @@ const Products = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products.map((product:Product) => (
             <div
-              key={product.id}
+              key={product._id}
               className="bg-white hover:shadow-lg overflow-hidden rounded-lg shadow hover:scale-105 transition-transform duration-300"
             >
               {/* Product Image */}

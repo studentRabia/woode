@@ -39,12 +39,12 @@ const CartPage = () => {
   };
 
   const handleIncrement = (id: string) => {
-    const product = cartItems.find((item) => item.id === id);
+    const product = cartItems.find((item) => item._id === id);
     if (product) handleQuantityChange(id, product.inventory + 1);
   };
 
   const handleDecrement = (id: string) => {
-    const product = cartItems.find((item) => item.id === id);
+    const product = cartItems.find((item) => item._id === id);
     if (product && product.inventory > 1) handleQuantityChange(id, product.inventory - 1);
   };
 
@@ -87,7 +87,7 @@ const CartPage = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {cartItems.map((item) => (
-            <div key={item.id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+            <div key={item._id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
               {item.imageUrl && (
                 <Image
                   src={urlFor(item.imageUrl).url()}
@@ -101,21 +101,21 @@ const CartPage = () => {
               <p className="text-gray-600 ">Price: ${item.price}</p>
               <div className="flex items-center space-x-2 mt-2">
                 <button
-                  onClick={() => handleDecrement(item.id)}
+                  onClick={() => handleDecrement(item._id)}
                   className="px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded"
                 >
                   -
                 </button>
                 <span className="text-lg font-semibold">{item.inventory}</span>
                 <button
-                  onClick={() => handleIncrement(item.id)}
+                  onClick={() => handleIncrement(item._id)}
                   className="px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded"
                 >
                   +
                 </button>
               </div>
               <button
-                onClick={() => handleRemove(item.id)}
+                onClick={() => handleRemove(item._id)}
                 className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
               >
                 Remove

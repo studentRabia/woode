@@ -13,7 +13,7 @@ export const addToCart = (product: Product) => {
     _key: item._key || uuidv4(),
   }));
 
-  const existingItem = updatedCartItems.find(item => item.id === product.id);
+  const existingItem = updatedCartItems.find(item => item._id === product._id);
   if (existingItem) {
     existingItem.quantity += 1;
   } else {
@@ -25,13 +25,13 @@ export const addToCart = (product: Product) => {
 
 export const removeFromCart = (productId: string) => {
   let cart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
-  cart = cart.filter(item => item.id !== productId);
+  cart = cart.filter(item => item._id !== productId);
   localStorage.setItem('cart', JSON.stringify(cart));
 };
 
 export const updateCartQuantity = (productId: string, quantity: number) => {
   const cart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
-  const productIndex = cart.findIndex(item => item.id === productId);
+  const productIndex = cart.findIndex(item => item._id === productId);
 
   if (productIndex > -1) {
     cart[productIndex].quantity = quantity;  // ✅ Fixed here
