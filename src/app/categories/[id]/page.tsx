@@ -3,6 +3,11 @@ import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
+// ✅ Manually Define PageProps
+interface PageProps<T = {}> {
+  params: T;
+}
+
 // TypeScript interface for category details
 interface CategoryDetail {
   id: string;
@@ -43,8 +48,8 @@ export async function generateStaticParams() {
   }));
 }
 
-// ✅ Fix: Correctly define `params` type
-const CategoryPage = async ({ params }: { params: { id: string } }) => {
+// ✅ Fix: Use manually defined `PageProps`
+const CategoryPage = async ({ params }: PageProps<{ id: string }>) => {
   console.log("Category ID received from URL:", params.id);
   const decodedId = decodeURIComponent(params.id);
 
